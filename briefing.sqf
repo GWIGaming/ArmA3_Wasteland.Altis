@@ -24,7 +24,7 @@ player createDiaryRecord ["changelog",
 <br/>[Added] Scoreboard scrolling via mousewheel
 <br/>[Added] New paintjobs for Kajman, Strider, Gorgon, Hatchback
 <br/>[Changed] Hostile Heli (single) crates now spawn on touchdown
-<br/>[Changed] Lowered Ifrit center of mass to reduce rollovers
+<br/>[Changed] Lowered Ifrit center of mass to reduce rollovers.
 <br/>[Changed] Updated antihack database
 <br/>[Fixed] Saved grenades not throwable on rejoin
 <br/>[Fixed] Corpses not ejecting from vehicle wrecks
