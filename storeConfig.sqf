@@ -96,27 +96,17 @@ lmgArray = compileFinal str
 	["MX SW LMG", "arifle_MX_SW_F", 300],
 	["MX SW LMG (Black)", "arifle_MX_SW_Black_F", 325],
 	["Mk200 LMG", "LMG_Mk200_F", 400],
-<<<<<<< HEAD
 	["Zafir LMG", "LMG_Zafir_F", 500]
 	//["Navid MMG (Tan) [DLC]", "MMG_01_tan_F", 750],
 	//["Navid MMG (Hex) [DLC]", "MMG_01_hex_F", 750],
 	//["SPMG MMG (Sand) [DLC]", "MMG_02_sand_F", 750],
 	//["SPMG MMG (MTP) [DLC]", "MMG_02_camo_F", 750],
 	//["SPMG MMG (Black) [DLC]", "MMG_02_black_F", 800]
-=======
-	["Zafir LMG", "LMG_Zafir_F", 500],
-	["SPMG MMG (Sand) [DLC]", "MMG_02_sand_F", 750],
-	["SPMG MMG (MTP) [DLC]", "MMG_02_camo_F", 750],
-	["SPMG MMG (Black) [DLC]", "MMG_02_black_F", 800],
-	["Navid MMG (Tan) [DLC]", "MMG_01_tan_F", 1000],
-	["Navid MMG (Hex) [DLC]", "MMG_01_hex_F", 1000]
->>>>>>> refs/remotes/A3Wasteland/dev
 ];
 
 launcherArray = compileFinal str
 [
 	["RPG-42 Alamut", "launch_RPG32_F", 400],
-<<<<<<< HEAD
 	["PCML", "launch_NLAW_F", 600]
 	//["Titan MPRL Compact (Tan)", "launch_Titan_short_F", 500],
 	//["Titan MPRL Compact (Brown)", "launch_O_Titan_short_F", 500],
@@ -124,15 +114,6 @@ launcherArray = compileFinal str
 	//["Titan MPRL AA (Desert)", "launch_Titan_F", 600],
 	//["Titan MPRL AA (Hex)", "launch_O_Titan_F", 600],
 	//["Titan MPRL AA (Digi)", "launch_I_Titan_F", 600]
-=======
-	["PCML", "launch_NLAW_F", 600],
-	["Titan MPRL Compact (Sand)", "launch_Titan_short_F", 500],
-	["Titan MPRL Compact (Coyote)", "launch_O_Titan_short_F", 500],
-	["Titan MPRL Compact (Olive)", "launch_I_Titan_short_F", 500],
-	["Titan MPRL AA (Sand)", "launch_Titan_F", 600],
-	["Titan MPRL AA (Hex)", "launch_O_Titan_F", 600],
-	["Titan MPRL AA (Digi)", "launch_I_Titan_F", 600]
->>>>>>> refs/remotes/A3Wasteland/dev
 ];
 
 allGunStoreFirearms = compileFinal str (call pistolArray + call smgArray + call rifleArray + call lmgArray + call launcherArray);
@@ -308,17 +289,10 @@ accessoriesArray = compileFinal str
 	["Kahlia (Hex) [DLC]", "optic_KHS_hex", 250, "item"],
 	["Kahlia (Tan) [DLC]", "optic_KHS_tan", 250, "item"],
 	["LRPS", "optic_LRPS", 300, "item"],
-<<<<<<< HEAD
 	["NVS", "optic_NVS", 500, "item"]
 	//["TWS", "optic_tws", 5000, "item"],
 	//["TWS MG", "optic_tws_mg", 6000, "item"],
 	//["Nightstalker", "optic_Nightstalker", 7500, "item"]
-=======
-	["NVS", "optic_NVS", 500, "item"],
-	["TWS", "optic_tws", 5000, "item"], // To hide from store list, add "HIDDEN" after "item", like "item", "HIDDEN"]
-	["TWS MG", "optic_tws_mg", 6000, "item"],
-	["Nightstalker", "optic_Nightstalker", 7500, "item"]
->>>>>>> refs/remotes/A3Wasteland/dev
 ];
 
 // If commented, means the color/camo isn't implemented or is a duplicate of another hat
