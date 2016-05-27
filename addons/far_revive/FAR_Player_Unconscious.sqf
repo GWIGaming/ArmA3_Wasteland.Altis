@@ -97,7 +97,8 @@ waitUntil {!isNil {_unit getVariable "FAR_killerSuspects"}};
 // Find killer
 _killer = _unit call FAR_findKiller;
 _unit setVariable ["FAR_killerPrimeSuspect", _killer];
-[_unit, _killer] remoteExecCall ["A3W_fnc_registerKillScore", 2];
+_unit setVariable ["FAR_killerPrimeSuspectData", [getPlayerUID effectiveCommander _killer, group effectiveCommander _killer], true];
+//[_unit, _killer] remoteExecCall ["A3W_fnc_registerKillScore", 2];
 
 diag_log format ["INCAPACITATED by [%1] with [%2]", _killer, _unit getVariable ["FAR_killerAmmo", ""]];
 
@@ -112,7 +113,7 @@ if (!isPlayer _unit) then
 };
 
 // Injury message
-if (FAR_EnableDeathMessages && difficultyOption "deathMessages" > 0 && !isNil "_killer") then
+if (FAR_EnableDeathMessages && (round difficultyOption "deathMessages" > 0 || ["A3W_customDeathMessages"] call isConfigOn) && !isNil "_killer") then
 {
 	[_unit, _killer] spawn
 	{
@@ -130,7 +131,7 @@ if (FAR_EnableDeathMessages && difficultyOption "deathMessages" > 0 && !isNil "_
 
 			if (!alive _unit) exitWith {};
 
-			FAR_deathMessage = [_names, netId _unit];
+			FAR_deathMessage = [_names, netId _unit, netId _killer];
 			publicVariable "FAR_deathMessage";
 			["FAR_deathMessage", FAR_deathMessage] call FAR_public_EH;
 		};
@@ -254,7 +255,7 @@ if (isPlayer _unit) then
 		FAR_cutTextLayer cutText ["", "BLACK IN"];
 		(findDisplay ReviveBlankGUI_IDD) closeDisplay 0;
 
-		if (createDialog "ReviveGUI") then
+		if (createDialog "ReviveGUI" && !FAR_Debugging) then
 		{
 			(findDisplay ReviveGUI_IDD) displayAddEventHandler ["KeyDown", "_this select 1 == 1"]; // blocks Esc to prevent closing
 		};
@@ -295,7 +296,12 @@ while {UNCONSCIOUS(_unit) && diag_tickTime < _bleedOut} do
 {
 	if (!alive vehicle _unit || (getPosASL _unit) select 2 < -1.5) exitWith
 	{
-		if (damage _unit < 1) then { _unit setDamage 1 }; // if check required to prevent "Killed" EH from getting triggered twice
+		if (damage _unit < 1) then // if check required to prevent "Killed" EH from getting triggered twice
+		{
+			_unit setVariable ["A3W_deathCause_local", ["drown",1e11]];
+			_unit setDamage 1;
+		};
+
 		if (_unit == player) then { FAR_cutTextLayer cutText ["", "PLAIN"] };
 	};
 
@@ -417,8 +423,8 @@ if (alive _unit && !UNCONSCIOUS(_unit)) then // Player got revived
 	// outside scheduler
 	_resetUnit = [_unit,
 	{
-		_this call FAR_Reset_Unit;
 		_this call FAR_Reset_Killer_Info;
+		_this call FAR_Reset_Unit;
 	}] execFSM "call.fsm";
 
 	waitUntil {completedFSM _resetUnit};
@@ -439,7 +445,11 @@ if (alive _unit && !UNCONSCIOUS(_unit)) then // Player got revived
 }
 else // Player bled out
 {
-	if (damage _unit < 1) then { _unit setDamage 1 }; // if check required to prevent "Killed" EH from getting triggered twice
+	if (damage _unit < 1) then // if check required to prevent "Killed" EH from getting triggered twice
+	{
+		_unit setVariable ["A3W_deathCause_local", ["bleedout",1e11]];
+		_unit setDamage 1;
+	};
 
 	if (!isPlayer _unit) then
 	{

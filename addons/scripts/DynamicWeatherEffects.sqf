@@ -85,7 +85,7 @@ _windChangeProbability = 25;
 // Probability in percent (0-100) for rain to start at every rain interval. Set this to 0 if you don't want rain at all. Set this to 100
 // if you want it to rain constantly when overcast is greater than 0.75. In short: if you think that it generally rains to often then
 // lower this value and vice versa. (Suggested value: 50).
-_rainIntervalRainProbability = 50;
+_rainIntervalRainProbability = 0;
 
 // Minimum time in minutes for rain intervals. Must be greater or equal to 0 and less than or equal to _maxRainIntervalTimeMin.
 // (Suggested value: 0).
@@ -104,6 +104,8 @@ _forceRainToStopAfterOneRainInterval = false;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Don't touch anything beneath this line
 
+drn_DynamicWeather_minFog = _minimumFog;
+drn_DynamicWeather_maxFog = _maximumFog;
 drn_DynamicWeather_DebugTextEventArgs = []; // Empty
 
 "drn_DynamicWeather_DebugTextEventArgs" addPublicVariableEventHandler {
@@ -159,21 +161,23 @@ drn_fnc_fogOdds =
 drn_fnc_DynamicWeather_SetWeatherLocal = {
 	params ["_currentOvercast", "_currentFog", "_currentRain", "_currentWeatherChange", "_targetWeatherValue", "_timeUntilCompletion", "_currentWindX", "_currentWindY"];
 
+	_currentRain = drn_var_DynamicWeather_Rain;
+
 	if (_currentFog isEqualType []) then {
 		_currentFog = _currentFog select 0;
 	};
 
 	/*if (typeName _currentFog == "ARRAY") then {
-		_currentFog set [0, (_currentFog select 0) max (_currentRain / 3)];
+		_currentFog set [0, (_currentFog select 0) max (_currentRain / 4)];
 	}
 	else {*/
-		_currentFog = _currentFog max (_currentRain / 3);
+		_currentFog = (drn_DynamicWeather_minFog max _currentFog min drn_DynamicWeather_maxFog) max (_currentRain / 4);
 	//};
 
 	// Set current weather values
 	if (_currentWeatherChange != "OVERCAST") then { 0 setOvercast _currentOvercast };
 	0 setFog [_currentFog, 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably
-	drn_var_DynamicWeather_Rain = _currentRain;
+	//drn_var_DynamicWeather_Rain = _currentRain;
 	setWind [_currentWindX, _currentWindY, true];
 
 	if (isNil "drn_JIPWeatherSynced") then
@@ -186,14 +190,14 @@ drn_fnc_DynamicWeather_SetWeatherLocal = {
 	// Set forecast
 	if (_currentWeatherChange == "OVERCAST") then {
 		_timeUntilCompletion setOvercast (_targetWeatherValue call drn_fnc_overcastOdds);
-		//5 setFog [_currentRain / 3, 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably // Quick hack to ensure fog goes away regularly
+		//5 setFog [_currentRain / 4, 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably // Quick hack to ensure fog goes away regularly
 	};
 	if (_currentWeatherChange == "FOG") then {
 		if (typeName _targetWeatherValue == "ARRAY") then {
 			_targetWeatherValue = _targetWeatherValue select 0;
 		};
 		(3600 * timeMultiplier * abs (overcast - _currentOvercast)) setOvercast _currentOvercast;
-		_timeUntilCompletion setFog [_targetWeatherValue max (_currentRain / 3), 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably
+		_timeUntilCompletion setFog [_targetWeatherValue max (_currentRain / 4), 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably
 	};
 };
 
@@ -254,7 +258,7 @@ if (isServer) then {
 		_initialFog = _minimumFog max _initialFog min _maximumFog;
 	};
 
-	//0 setFog [_initialFog max (rain / 3), 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably
+	//0 setFog [_initialFog max (rain / 4), 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably
 
 	if (_initialOvercast == -1) then {
 		_initialOvercast = _minimumOvercast + random (_maximumOvercast - _minimumOvercast);
@@ -283,7 +287,7 @@ if (isServer) then {
 
 	drn_var_DynamicWeather_Rain = _initialRain;
 	0 setRain _initialRain;
-	0 setFog [_initialFog max (_initialRain / 3), 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably
+	0 setFog [_initialFog max (_initialRain / 4), 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably
 
 
 	if (isNil "drn_DynamicWeather_WindX") then {
@@ -525,7 +529,7 @@ drn_DynamicWeather_FogThread = [_rainIntervalRainProbability, _debug] spawn
 	};
 
 	//0 setRain _rain;
-	//0 setFog [fog max (_rain / 3), 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably
+	//0 setFog [fog max (_rain / 4), 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably
 	sleep 0.1;
 
 	while {true} do {
@@ -545,15 +549,15 @@ drn_DynamicWeather_FogThread = [_rainIntervalRainProbability, _debug] spawn
 
 		_rain = drn_var_DynamicWeather_Rain;
 
-		if (round (rain * 100) != round (_rain * 100) || round (fog * 100) < round ((rain / 3) * 100)) then
+		if (round (rain * 100) != round (_rain * 100) || round (fog * 100) < round ((rain / 4) * 100)) then
 		{
 			if (overcast >= 0.75) then
 			{
 				10 setRain _rain;
 
-				if (fog < round (_rain / 3)) then
+				if (fog < _rain / 4) then
 				{
-					10 setFog [_rain / 3, 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably
+					10 setFog [_rain / 4, 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably
 				};
 			}
 			else
@@ -561,12 +565,13 @@ drn_DynamicWeather_FogThread = [_rainIntervalRainProbability, _debug] spawn
 				if (rain > 0) then
 				{
 					10 setRain 0;
+					drn_var_DynamicWeather_Rain = 0;
 					drn_DynamicWeatherEventArgs call drn_fnc_DynamicWeather_SetWeatherLocal;
 				};
 			};
 		};
 
-		/*_tempFog = fog max (_rain / 3);
+		/*_tempFog = fog max (_rain / 4);
 		if (_tempFog > fog + 0.001 || _tempFog < fog - 0.001) then
 		{
 			(10 * timeMultiplier) setFog [_tempFog, 0.0, 0]; // do not change fog decay/base otherwise the fog level will vary unpredictably

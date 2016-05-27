@@ -4,7 +4,7 @@
 //	@file Name: FAR_lastResort.sqf
 //	@file Author: AgentRev
 
-private ["_hasCharge", "_hasSatchel", "_mineType", "_pos", "_mine"];
+private ["_hasCharge", "_hasSatchel", "_mineType", "_mine"];
 
 _hasCharge = "DemoCharge_Remote_Mag" in magazines player;
 _hasSatchel = "SatchelCharge_Remote_Mag" in magazines player;
@@ -31,12 +31,15 @@ if !(player getVariable ["performingDuty", false]) then
 
 			sleep 1.75;
 
-			_pos = getPosATL player;
-			_pos set [2, (_pos select 2) + 0.5];
-
-			_mine = createMine [_mineType, _pos, [], 0];
+			_mine = createMine [_mineType, ASLtoAGL ((getPosASL player) vectorAdd [0, 0, 0.5]), [], 0];
 			_mine setDamage 1;
-			if (damage player < 1) then { player setDamage 1 }; // if check required to prevent "Killed" EH from getting triggered twice
+
+			if (damage player < 1) then // if check required to prevent "Killed" EH from getting triggered twice
+			{
+				player setVariable ["A3W_deathCause_local", ["suicide",1e11]];
+				player setDamage 1;
+			};
+
 			player setVariable ["performingDuty", nil];
 		};
 	}
