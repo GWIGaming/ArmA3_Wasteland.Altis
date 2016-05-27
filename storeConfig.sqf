@@ -581,9 +581,15 @@ genItemArray = compileFinal str
 	["Diving Goggles", "G_Diving", 100, "gogg"],
 	["Binoculars", "Binocular", 50, "binoc"],
 	["Rangefinder", "Rangefinder", 150, "binoc"],
+<<<<<<< HEAD
 	["Laser Designator (NATO)", "Laserdesignator", 2000, "binoc", "WEST"],
 	["Laser Designator (CSAT)", "Laserdesignator_02", 2000, "binoc", "EAST"],
 	["Laser Designator (AAF)", "Laserdesignator_03", 2000, "binoc", "GUER"],
+=======
+	["Laser Designator (NATO)", "Laserdesignator", 250, "binoc", "WEST"],
+	["Laser Designator (CSAT)", "Laserdesignator_02", 250, "binoc", "EAST"],
+	["Laser Designator (AAF)", "Laserdesignator_03", 250, "binoc", "GUER"],
+>>>>>>> refs/remotes/A3Wasteland/dev
 	["IR Grenade (NATO)", "B_IR_Grenade", 50, "mag", "WEST"],
 	["IR Grenade (CSAT)", "O_IR_Grenade", 50, "mag", "EAST"],
 	["IR Grenade (AAF)", "I_IR_Grenade", 50, "mag", "GUER"],
