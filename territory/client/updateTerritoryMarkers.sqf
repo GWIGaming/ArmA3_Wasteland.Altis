@@ -7,53 +7,57 @@
 #define MARKER_BRUSH_OWNER "Solid"
 #define MARKER_BRUSH_OTHER "DiagGrid"
 
-if (isNull player) exitWith
-{
-	private _thread = _this spawn
-	{
-		waitUntil {!isNull player};
-		_this call A3W_fnc_updateTerritoryMarkers;
-	};
+private ["_territories", "_ownerCheck", "_isOwner", "_getTeamMarkerColor", "_marker", "_team", "_playerTeam"];
 
-	if (canSuspend) then { waitUntil {scriptDone _thread} };
-	_thread
+_territories = _this select 0;
+_ownerCheck = param [1, false, [false]];
+_team = param [2, sideUnknown, [sideUnknown,grpNull]];
+_isOwner = param [3, false, [false]];
+
+_getTeamMarkerColor = if (isNil "getTeamMarkerColor") then
+{
+	compile preprocessFileLineNumbers "territory\client\getTeamMarkerColor.sqf";
+}
+else
+{
+	getTeamMarkerColor
 };
 
-params [["_territories",[],[[]]], ["_ownerCheck",false,[false]], ["_team",sideUnknown,[sideUnknown,grpNull]], ["_isOwner",false,[false]]];
-
-if (_team isEqualType grpNull && {(side _team) in [BLUFOR,OPFOR]}) then
+if (isNull player) then
 {
-	_team = side _team;
+	waitUntil {!isNull player};
 };
 
 {
 	if (_ownerCheck) then
 	{
-		_x params ["_marker", "_team"];
+		_marker = _x select 0;
+		_team = _x select 1;
+		_playerTeam = if (typeName _team == "GROUP") then { group player } else { playerSide };
 
-		if (_team in [playerSide, group player]) then
+		if (_team == _playerTeam) then
 		{
-			_marker setMarkerColorLocal ([_team, true] call A3W_fnc_getTeamMarkerColor);
+			_marker setMarkerColorLocal ([_team, true] call _getTeamMarkerColor);
 			_marker setMarkerBrushLocal MARKER_BRUSH_OWNER;
 		}
 		else
 		{
-			_marker setMarkerColorLocal ([_team, false] call A3W_fnc_getTeamMarkerColor);
+			_marker setMarkerColorLocal ([_team, false] call _getTeamMarkerColor);
 			_marker setMarkerBrushLocal MARKER_BRUSH_OTHER;
 		};
 	}
 	else
 	{
-		_x params ["_marker"];
+		_marker = _x;
 
 		if (_isOwner) then
 		{
-			_marker setMarkerColorLocal ([_team, true] call A3W_fnc_getTeamMarkerColor);
+			_marker setMarkerColorLocal ([_team, true] call _getTeamMarkerColor);
 			_marker setMarkerBrushLocal MARKER_BRUSH_OWNER;
 		}
 		else
 		{
-			_marker setMarkerColorLocal ([_team, false] call A3W_fnc_getTeamMarkerColor);
+			_marker setMarkerColorLocal ([_team, false] call _getTeamMarkerColor);
 			_marker setMarkerBrushLocal MARKER_BRUSH_OTHER;
 		};
 	};
