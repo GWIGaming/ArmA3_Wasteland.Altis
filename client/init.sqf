@@ -51,7 +51,7 @@ if !(playerSide in [BLUFOR,OPFOR,INDEPENDENT]) exitWith
 //Setup player events.
 if (!isNil "client_initEH") then { player removeEventHandler ["Respawn", client_initEH] };
 player addEventHandler ["Respawn", { _this spawn onRespawn }];
-player addEventHandler ["Killed", { _this spawn onKilled }];
+player addEventHandler ["Killed", onKilled];
 
 call compile preprocessFileLineNumbers "addons\far_revive\FAR_revive_init.sqf";
 
@@ -149,6 +149,8 @@ A3W_scriptThreads pushBack execVM "addons\Lootspawner\LSclientScan.sqf";
 
 call compile preprocessFileLineNumbers "client\functions\generateAtmArray.sqf";
 [] execVM "client\functions\drawPlayerMarkers.sqf";
+
+inGameUISetEventHandler ["Action", "_this call A3W_fnc_inGameUIActionEvent"];
 
 { [_x] call fn_remotePlayerSetup } forEach allPlayers;
 
