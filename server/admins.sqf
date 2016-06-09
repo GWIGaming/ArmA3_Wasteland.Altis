@@ -29,7 +29,7 @@ else
 	// Low Administrators: manage & spectate players, remove hacked vehicles
 	lowAdmins = compileFinal str
 	[
-		// Put player UIDs here
+		//
 	];
 
 	// High Administrators: manage & spectate players, remove hacked vehicles, show player tags
@@ -41,7 +41,7 @@ else
 	// Server Owners: access to everything, including god mode, money, guns, and vehicles
 	serverOwners = compileFinal str
 	[
-		// Put player UIDs here
+		//
 	];
 
 	/********************************************************/
