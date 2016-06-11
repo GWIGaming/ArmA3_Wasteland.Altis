@@ -289,17 +289,10 @@ accessoriesArray = compileFinal str
 	["Kahlia (Hex) [DLC]", "optic_KHS_hex", 250, "item"],
 	["Kahlia (Tan) [DLC]", "optic_KHS_tan", 250, "item"],
 	["LRPS", "optic_LRPS", 300, "item"],
-<<<<<<< HEAD
-	["NVS", "optic_NVS", 500, "item"]
-	//["TWS", "optic_tws", 5000, "item"],
-	//["TWS MG", "optic_tws_mg", 6000, "item"],
-	//["Nightstalker", "optic_Nightstalker", 7500, "item"]
-=======
 	["NVS", "optic_NVS", 500, "item"],
 	["TWS", "optic_tws", 5000, "item", "HIDDEN"], // To hide from store list, add "HIDDEN" after "item", like "item", "HIDDEN"]
 	["TWS MG", "optic_tws_mg", 6000, "item", "HIDDEN"],
 	["Nightstalker", "optic_Nightstalker", 7500, "item", "HIDDEN"]
->>>>>>> refs/remotes/A3Wasteland/dev
 ];
 
 // If commented, means the color/camo isn't implemented or is a duplicate of another hat
@@ -600,15 +593,9 @@ genItemArray = compileFinal str
 	["Diving Goggles", "G_Diving", 100, "gogg"],
 	["Binoculars", "Binocular", 50, "binoc"],
 	["Rangefinder", "Rangefinder", 150, "binoc"],
-<<<<<<< HEAD
-	["Laser Designator (NATO)", "Laserdesignator", 2000, "binoc", "WEST"],
-	["Laser Designator (CSAT)", "Laserdesignator_02", 2000, "binoc", "EAST"],
-	["Laser Designator (AAF)", "Laserdesignator_03", 2000, "binoc", "GUER"],
-=======
-	["Laser Designator (Sand)", "Laserdesignator", 250, "binoc"], // Increase price to 2500 if A3W_disableBuiltInThermal = 0
-	["Laser Designator (Hex)", "Laserdesignator_02", 250, "binoc"],
-	["Laser Designator (Olive)", "Laserdesignator_03", 250, "binoc"],
->>>>>>> refs/remotes/A3Wasteland/dev
+	["Laser Designator (Sand)", "Laserdesignator", 2500, "binoc"], // Increase price to 2500 if A3W_disableBuiltInThermal = 0
+	["Laser Designator (Hex)", "Laserdesignator_02", 2500, "binoc"],
+	["Laser Designator (Olive)", "Laserdesignator_03", 2500, "binoc"],
 	["IR Grenade (NATO)", "B_IR_Grenade", 50, "mag", "WEST"],
 	["IR Grenade (CSAT)", "O_IR_Grenade", 50, "mag", "EAST"],
 	["IR Grenade (AAF)", "I_IR_Grenade", 50, "mag", "GUER"],
