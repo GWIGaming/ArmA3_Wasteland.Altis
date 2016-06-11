@@ -37,18 +37,14 @@ switch (_boxType) do
 		_boxItems =
 		[
 			// Item type, Item class(es), # of items, # of magazines per weapon
-			["wep", ["Laserdesignator", "Laserdesignator_02", "Laserdesignator_03"], 1, 1],
-			["wep", ["launch_RPG32_F", "launch_NLAW_F", "launch_Titan_short_F"], RANDOM_BETWEEN(2,5), RANDOM_BETWEEN(1,2)],
-			["wep", "launch_Titan_F", RANDOM_BETWEEN(1,2), RANDOM_BETWEEN(1,2)],
+			["wep", ["Laserdesignator", "Laserdesignator_02", "Laserdesignator_03"], 0, 1],
+			["wep", ["launch_RPG32_F", "launch_NLAW_F", "launch_Titan_short_F"], RANDOM_BETWEEN(2,5), RANDOM_BETWEEN(3,4)],
+			["wep", "launch_Titan_F", RANDOM_BETWEEN(1,2), RANDOM_BETWEEN(3,4)],
 			["mag", ["APERSTripMine_Wire_Mag", "APERSBoundingMine_Range_Mag", "APERSMine_Range_Mag", "ClaymoreDirectionalMine_Remote_Mag"], RANDOM_BETWEEN(2,5)],
 			["mag", ["SLAMDirectionalMine_Wire_Mag", "ATMine_Range_Mag", "DemoCharge_Remote_Mag", "SatchelCharge_Remote_Mag"], RANDOM_BETWEEN(2,5)],
 			["mag", "HandGrenade", RANDOM_BETWEEN(5,10)],
-			["mag", "1Rnd_HE_Grenade_shell", RANDOM_BETWEEN(5,10)],
+			["mag", "3Rnd_HE_Grenade_shell", RANDOM_BETWEEN(5,10)],
 			["itm", [["H_HelmetB", "H_HelmetIA"], ["H_HelmetSpecB", "H_HelmetSpecO_ocamo"], "H_HelmetLeaderO_ocamo"], RANDOM_BETWEEN(1,4)],
-			["itm", [["V_PlateCarrier1_rgr", "V_PlateCarrier1_blk", "V_PlateCarrierIA1_dgtl"], // Lite
-			         ["V_PlateCarrier2_rgr", "V_PlateCarrier2_blk", "V_PlateCarrierIA2_dgtl"], // Rig
-			         ["V_PlateCarrierSpec_rgr", "V_PlateCarrierSpec_blk", "V_PlateCarrierSpec_mtp"], // Special
-			         ["V_PlateCarrierGL_rgr", "V_PlateCarrierGL_blk", "V_PlateCarrierGL_mtp", "V_PlateCarrierIAGL_dgtl", "V_PlateCarrierIAGL_oli"]] /* GL */, RANDOM_BETWEEN(1,4)]
 		];
 	};
 	case "mission_USSpecial":
@@ -57,21 +53,18 @@ switch (_boxType) do
 		[
 			// Item type, Item class(es), # of items, # of magazines per weapon
 			//["itm", "NVGoggles", 5],
-			["wep", ["Binocular", "Rangefinder"], RANDOM_BETWEEN(0,3)],
-			["itm", "Medikit", RANDOM_BETWEEN(1,3)],
-			["itm", "Toolkit", RANDOM_BETWEEN(1,3)],
-			["itm", ["optic_Aco", "optic_Aco_grn", "optic_MRCO", "optic_Hamr", "optic_Arco"], RANDOM_BETWEEN(2,4)],
-			["itm", ["muzzle_snds_M", "muzzle_snds_H", "muzzle_snds_H_MG", "muzzle_snds_B", "muzzle_snds_acp", ["muzzle_snds_338_black", "muzzle_snds_338_green", "muzzle_snds_338_sand"], ["muzzle_snds_93mmg", "muzzle_snds_93mmg_tan"]], RANDOM_BETWEEN(1,5)],
-			["wep", [["MMG_02_sand_F", "MMG_02_camo_F", "MMG_02_black_F"], ["MMG_01_tan_F", "MMG_01_hex_F"]], RANDOM_BETWEEN(1,3), RANDOM_BETWEEN(2,4)],
-			["wep", ["LMG_Mk200_F", "LMG_Zafir_F"], RANDOM_BETWEEN(1,3), RANDOM_BETWEEN(2,4)],
-			["wep", ["srifle_EBR_F", "srifle_DMR_01_F"], RANDOM_BETWEEN(0,2), RANDOM_BETWEEN(4,8)],
-			["wep", "arifle_SDAR_F", RANDOM_BETWEEN(0,2), RANDOM_BETWEEN(3,5)],
-			["wep", ["hgun_Pistol_heavy_01_F", "hgun_Pistol_heavy_01_MRD_F", "hgun_Pistol_heavy_02_F", "hgun_Pistol_heavy_02_Yorris_F"], RANDOM_BETWEEN(1,3), RANDOM_BETWEEN(4,8)],
-			["mag", "30Rnd_556x45_Stanag", RANDOM_BETWEEN(5,10)],
-			["mag", "30Rnd_65x39_caseless_mag", RANDOM_BETWEEN(5,10)],
-			["mag", "30Rnd_65x39_caseless_green", RANDOM_BETWEEN(5,10)],
-			["mag", "9Rnd_45ACP_Mag", RANDOM_BETWEEN(5,10)],
-			["mag", "16Rnd_9x21_Mag", RANDOM_BETWEEN(5,10)]
+			["wep", ["Laserdesignator", "Rangefinder"], RANDOM_BETWEEN(0,1)],
+			["itm", ["optic_Aco", "optic_Aco_grn", "optic_MRCO", "optic_Hamr", "optic_Arco", "optic_AMS"], RANDOM_BETWEEN(2,4)],
+			["itm", ["optic_Nightstalker", "optic_tws"], RANDOM_BETWEEN(0,1)],
+			["itm", ["muzzle_snds_338_black", "muzzle_snds_338_sand", "muzzle_snds_93mmg", "muzzle_snds_93mmg_tan"], RANDOM_BETWEEN(3,5)],
+			["wep", [["MMG_02_sand_F", "MMG_02_camo_F", "MMG_02_black_F"], ["MMG_01_tan_F", "MMG_01_hex_F"]], RANDOM_BETWEEN(1,2), RANDOM_BETWEEN(3,5)],
+			["wep", ["srifle_DMR_02_F", "srifle_DMR_02_sniper_F"], RANDOM_BETWEEN(0,1), RANDOM_BETWEEN(4,8)],
+			["wep", "srifle_DMR_05_tan_f", RANDOM_BETWEEN(1,2), RANDOM_BETWEEN(3,5)],
+			["mag", "10Rnd_338_Mag", RANDOM_BETWEEN(5,10)],
+			["mag", "10Rnd_93x64_DMR_05_Mag", RANDOM_BETWEEN(5,10)],
+			["mag", "130Rnd_338_Mag", RANDOM_BETWEEN(3,4)],
+			["mag", "150Rnd_93x64_Mag", RANDOM_BETWEEN(3,4)],
+			["mag", "20Rnd_762x51_Mag", RANDOM_BETWEEN(4,8)]
 		];
 	};
 	case "mission_Main_A3snipers":
@@ -86,12 +79,41 @@ switch (_boxType) do
 			         ["srifle_DMR_05_blk_F", "srifle_DMR_05_hex_F", "srifle_DMR_05_tan_f"], // Cyrus
 			         ["srifle_DMR_06_camo_F", "srifle_DMR_06_olive_F"]] /* Mk14 */, RANDOM_BETWEEN(0,3), RANDOM_BETWEEN(5,10)],
 			["wep", ["srifle_EBR_F", "srifle_DMR_01_F"], RANDOM_BETWEEN(0,3), RANDOM_BETWEEN(5,10)],
+			["mag", "5Rnd_127x108_APDS_Mag", RANDOM_BETWEEN(4,8)]
 			["itm", ["optic_SOS", "optic_DMS", "optic_LRPS"], RANDOM_BETWEEN(2,4)],
 			["itm", ["optic_AMS", "optic_AMS_khk", "optic_AMS_snd", "optic_KHS_blk", "optic_KHS_hex", "optic_KHS_tan"], RANDOM_BETWEEN(1,3)],
-			["itm", ["optic_tws", "optic_tws_mg", "optic_Nightstalker"], RANDOM_ODDS(0.5)], // o shit waddup!!
+			["itm", ["optic_tws", "optic_Nightstalker"], RANDOM_ODDS(0.5)], // o shit waddup!!
 			["itm", "optic_NVS", RANDOM_BETWEEN(0,2)],
 			["itm", ["bipod_01_F_blk", "bipod_01_F_mtp", "bipod_01_F_snd", "bipod_02_F_blk", "bipod_02_F_hex", "bipod_02_F_tan", "bipod_03_F_blk", "bipod_03_F_oli"], RANDOM_BETWEEN(1,4)],
 			["itm", ["muzzle_snds_B", ["muzzle_snds_338_black", "muzzle_snds_338_green", "muzzle_snds_338_sand"], ["muzzle_snds_93mmg", "muzzle_snds_93mmg_tan"]], RANDOM_BETWEEN(1,4)]
+		];
+	};
+	case "mission_DLCRifles":
+	{
+		_boxItems =
+		[
+			// Item type, Item class(es), # of items, # of magazines per weapon
+			["wep", ["srifle_DMR_03_multicam_F", "srifle_DMR_02_sniper_F", "srifle_DMR_05_hex_F", "srifle_DMR_04_Tan_F"], RANDOM_BETWEEN(1,3), RANDOM_BETWEEN(4,6)],
+			["itm", ["V_PlateCarrier3_rgr", "V_TacVest_camo", "V_PlateCarrierGL_rgr"], RANDOM_BETWEEN(0,2)],
+			["bac", ["B_Carryall_mcamo", "B_Kitbag_mcamo"], RANDOM_BETWEEN(1,3)],
+			["itm", ["bipod_01_F_blk", "bipod_02_F_hex"], RANDOM_BETWEEN(2,4)],
+			["itm", ["optic_DMS","optic_AMS","optic_KHS_blk"], RANDOM_BETWEEN(3,5)],
+			["itm", ["optic_Nightstalker", "optic_tws"], RANDOM_BETWEEN(0,1)],
+			["itm", ["muzzle_snds_B", "muzzle_snds_338_black", "muzzle_snds_338_sand", "muzzle_snds_93mmg"], RANDOM_BETWEEN(3,5)]
+		];
+	};
+	case "mission_DLCLMGs":
+	{
+		_boxItems =
+		[
+			// Item type, Item class(es), # of items, # of magazines per weapon
+			["wep", ["MMG_02_black_F", "MMG_02_camo_F","MMG_02_sand_F","MMG_01_hex_F","MMG_01_tan_F"], RANDOM_BETWEEN(1,3), RANDOM_BETWEEN(2,4)],
+			["itm", ["V_PlateCarrier3_rgr", "V_TacVest_camo", "V_PlateCarrierGL_rgr"], RANDOM_BETWEEN(0,2)],
+			["bac", ["B_Carryall_mcamo", "B_Kitbag_mcamo"], RANDOM_BETWEEN(1,3)],
+			["itm", ["bipod_01_F_blk", "bipod_02_F_hex"], RANDOM_BETWEEN(2,4)],
+			["itm", ["optic_DMS","optic_AMS","optic_KHS_blk"], RANDOM_BETWEEN(3,5)],
+			["itm", ["muzzle_snds_338_black", "muzzle_snds_338_sand", "muzzle_snds_93mmg"], RANDOM_BETWEEN(3,5)],
+			["itm", "optic_tws_mg", RANDOM_BETWEEN(0,1)]
 		];
 	};
 };
