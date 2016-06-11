@@ -289,10 +289,17 @@ accessoriesArray = compileFinal str
 	["Kahlia (Hex) [DLC]", "optic_KHS_hex", 250, "item"],
 	["Kahlia (Tan) [DLC]", "optic_KHS_tan", 250, "item"],
 	["LRPS", "optic_LRPS", 300, "item"],
+<<<<<<< HEAD
 	["NVS", "optic_NVS", 500, "item"]
 	//["TWS", "optic_tws", 5000, "item"],
 	//["TWS MG", "optic_tws_mg", 6000, "item"],
 	//["Nightstalker", "optic_Nightstalker", 7500, "item"]
+=======
+	["NVS", "optic_NVS", 500, "item"],
+	["TWS", "optic_tws", 5000, "item", "HIDDEN"], // To hide from store list, add "HIDDEN" after "item", like "item", "HIDDEN"]
+	["TWS MG", "optic_tws_mg", 6000, "item", "HIDDEN"],
+	["Nightstalker", "optic_Nightstalker", 7500, "item", "HIDDEN"]
+>>>>>>> refs/remotes/A3Wasteland/dev
 ];
 
 // If commented, means the color/camo isn't implemented or is a duplicate of another hat
@@ -587,13 +594,21 @@ genItemArray = compileFinal str
 	["Medikit", "Medikit", 150, "item"],
 	["Toolkit", "ToolKit", 150, "item"],
 	["Mine Detector", "MineDetector", 100, "item"],
-	["NV Goggles", "NVGoggles", 100, "nvg"],
+	["NV Goggles (Brown)", "NVGoggles", 100, "nvg"],
+	["NV Goggles (Black)", "NVGoggles_OPFOR", 100, "nvg"],
+	["NV Goggles (Green)", "NVGoggles_INDEP", 100, "nvg"],
 	["Diving Goggles", "G_Diving", 100, "gogg"],
 	["Binoculars", "Binocular", 50, "binoc"],
 	["Rangefinder", "Rangefinder", 150, "binoc"],
+<<<<<<< HEAD
 	["Laser Designator (NATO)", "Laserdesignator", 2000, "binoc", "WEST"],
 	["Laser Designator (CSAT)", "Laserdesignator_02", 2000, "binoc", "EAST"],
 	["Laser Designator (AAF)", "Laserdesignator_03", 2000, "binoc", "GUER"],
+=======
+	["Laser Designator (Sand)", "Laserdesignator", 250, "binoc"], // Increase price to 2500 if A3W_disableBuiltInThermal = 0
+	["Laser Designator (Hex)", "Laserdesignator_02", 250, "binoc"],
+	["Laser Designator (Olive)", "Laserdesignator_03", 250, "binoc"],
+>>>>>>> refs/remotes/A3Wasteland/dev
 	["IR Grenade (NATO)", "B_IR_Grenade", 50, "mag", "WEST"],
 	["IR Grenade (CSAT)", "O_IR_Grenade", 50, "mag", "EAST"],
 	["IR Grenade (AAF)", "I_IR_Grenade", 50, "mag", "GUER"],
@@ -793,8 +808,8 @@ boatsArray = compileFinal str
 	["Assault Boat (AAF)", "I_Boat_Transport_01_F", 600, "boat"],
 	["Assault Boat (FIA)", "B_G_Boat_Transport_01_F", 600, "boat"],
 	["Motorboat", "C_Boat_Civil_01_F", 1000, "boat"],
-	["Motorboat Rescue", "C_Boat_Civil_rescue_01_F", 900, "boat"],
-	["Motorboat Police", "C_Boat_Civil_police_01_F", 1250, "boat"],
+	["Motorboat Rescue", "C_Boat_Civil_01_rescue_F", 900, "boat"],
+	["Motorboat Police", "C_Boat_Civil_01_police_F", 1250, "boat"],
 	["Speedboat HMG (CSAT)", "O_Boat_Armed_01_hmg_F", 4000, "boat"],
 	["Speedboat Minigun (NATO)", "B_Boat_Armed_01_minigun_F", 4000, "boat"],
 	["Speedboat Minigun (AAF)", "I_Boat_Armed_01_minigun_F", 4000, "boat"],
