@@ -1,10 +1,11 @@
 // ******************************************************************************************
 // * This project is licensed under the GNU Affero GPL v3. Copyright © 2014 A3Wasteland.com *
 // ******************************************************************************************
-//	@file Version: 1.0
+//	@file Version: 1.1
 //	@file Name: processItems.sqf
 //	@file Author: AgentRev
 //	@file Created: 27/12/2013 23:02
+// Updated 25/4/2015 - Apoc - Backpacks added
 
 private ["_vehicle", "_items", "_type", "_class", "_quantity", "_magsQty", "_i", "_randomClass", "_mag"];
 
@@ -13,7 +14,7 @@ _items = _this select 1;
 
 // Add items
 {
-	_type = _x select 0; // Item type ("I" for item, "W" for weapon, "M" for magazine)
+	_type = _x select 0; // Item type ("I" for item, "W" for weapon, "M" for magazine, "B" for backpack)
 	_class = _x select 1; // Item class (string or array of strings)
 	_quantity = floor (_x select 2); // Item quantity
 	_magsQty = if (count _x > 3) then { floor (_x select 3) } else { 0 }; // If item is weapon, quantity of magazines for each weapon (default = 0)
@@ -30,8 +31,7 @@ _items = _this select 1;
 				{
 					for "_i" from 1 to _quantity do
 					{
-						_randomClass = _class;
-						while {_randomClass isEqualType []} do { _randomClass = selectRandom _randomClass }; // supports infinitely-nested arrays, so you can select one weapon type and then a camo for that type
+						_randomClass = _class call BIS_fnc_selectRandom;
 						_vehicle addWeaponCargoGlobal [_randomClass, 1];
 
 						if (_magsQty > 0) then
@@ -58,8 +58,7 @@ _items = _this select 1;
 				{
 					for "_i" from 1 to _quantity do
 					{
-						_randomClass = _class;
-						while {_randomClass isEqualType []} do { _randomClass = selectRandom _randomClass };
+						_randomClass = _class call BIS_fnc_selectRandom;
 						_vehicle addMagazineCargoGlobal [_randomClass, 1];
 					};
 				}
@@ -74,8 +73,7 @@ _items = _this select 1;
 				{
 					for "_i" from 1 to _quantity do
 					{
-						_randomClass = _class;
-						while {_randomClass isEqualType []} do { _randomClass = selectRandom _randomClass };
+						_randomClass = _class call BIS_fnc_selectRandom;
 						_vehicle addItemCargoGlobal [_randomClass, 1];
 					};
 				}
@@ -84,6 +82,21 @@ _items = _this select 1;
 					_vehicle addItemCargoGlobal [_class, _quantity];
 				};
 			};
+			case "B":
+			{
+				if (typeName _class == "ARRAY") then
+				{
+					for "_i" from 1 to _quantity do
+					{
+						_randomClass = _class call BIS_fnc_selectRandom;
+						_vehicle addBackpackCargoGlobal [_randomClass, 1];
+					};
+				}
+				else
+				{
+					_vehicle addBackpackCargoGlobal [_class, _quantity];
+				};
+			};			
 		};
 	};
 } forEach _items;
