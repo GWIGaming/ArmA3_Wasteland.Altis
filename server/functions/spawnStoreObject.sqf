@@ -25,7 +25,8 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 {
 	_timeoutKey = _key + "_timeout";
 	_objectID = "";
-	_playerSide = side group _player;
+	private _playerGroup = group _player;
+	_playerSide = side _playerGroup;
 
 	if (_isGenStore || _isGunStore) then
 	{
@@ -135,19 +136,30 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 				//assign AI to the vehicle so it can actually be used
 				createVehicleCrew _object;
 
-				[_object, _playerSide] spawn
+				[_object, _playerSide, _playerGroup] spawn
 				{
-					_veh = _this select 0;
-					_side = _this select 1;
+					params ["_uav", "_playerSide", "_playerGroup"];
+					private "_grp";
 
-					waitUntil {count crew _veh > 0};
+					waitUntil {_grp = group _uav; !isNull _grp};
 
 					//assign AI to player's side to allow terminal connection
-					(crew _veh) joinSilent createGroup _side;
+					if (side _uav != _playerSide) then
+					{
+						_grp = createGroup _playerSide;
+						(crew _uav) joinSilent _grp;
+					};
+
+					_grp setCombatMode "BLUE"; // hold fire
+
+					if (isNull (_uav getVariable ["ownerGroupUAV", grpNull])) then
+					{
+						_uav setVariable ["ownerGroupUAV", _playerGroup, true]; // not currently used
+					};
 
 					{
-						[[_x, ["AI","",""]], "A3W_fnc_setName", true] call A3W_fnc_MP;
-					} forEach crew _veh;
+						[_x, ["UAV","",""]] remoteExec ["A3W_fnc_setName", 0, _x];
+					} forEach crew _uav;
 				};
 			};
 
@@ -229,7 +241,14 @@ if (_key != "" && isPlayer _player && {_isGenStore || _isGunStore || _isVehStore
 
 			if (_object isKindOf "AllVehicles") then
 			{
-				_object setOwner owner _player; // tentative workaround for exploding vehicles
+				if (isNull group _object) then
+				{
+					_object setOwner owner _player; // tentative workaround for exploding vehicles
+				}
+				else
+				{
+					(group _object) setGroupOwner owner _player;
+				};
 			};
 		};
 	};
