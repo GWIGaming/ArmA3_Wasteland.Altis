@@ -19,6 +19,8 @@ onKeyRelease = "client\clientEvents\onKeyRelease.sqf" call mf_compile;
 // Functions
 A3W_fnc_copilotTakeControl = "client\functions\copilotTakeControl.sqf" call mf_compile;
 A3W_fnc_inGameUIActionEvent = "client\functions\fn_inGameUIActionEvent.sqf" call mf_compile;
+A3W_fnc_forceOpenParachute = "client\functions\fn_forceOpenParachute.sqf" call mf_compile;
+A3W_fnc_openParachute = "client\functions\fn_openParachute.sqf" call mf_compile;
 A3W_fnc_titleTextMessage = "client\functions\titleTextMessage.sqf" call mf_compile;
 addWeaponInventory = "client\functions\addWeaponInventory.sqf" call mf_compile;
 canForceSaveVehicle = "client\functions\canForceSaveVehicle.sqf" call mf_compile;
@@ -37,8 +39,6 @@ fn_formatTimer = "client\functions\fn_formatTimer.sqf" call mf_compile;
 fn_getItemArmor = "client\functions\fn_getItemArmor.sqf" call mf_compile;
 fn_removeAllManagedActions = "client\functions\fn_removeAllManagedActions.sqf" call mf_compile;
 fn_removeManagedAction = "client\functions\fn_removeManagedAction.sqf" call mf_compile;
-fn_forceOpenParachute = "client\functions\fn_forceOpenParachute.sqf" call mf_compile;
-fn_openParachute = "client\functions\fn_openParachute.sqf" call mf_compile;
 fn_voiceChatControl = "client\functions\fn_voiceChatControl.sqf" call mf_compile;
 getDefaultClothing = "client\functions\getDefaultClothing.sqf" call mf_compile;
 getFullMove = "client\functions\getFullMove.sqf" call mf_compile;
@@ -85,6 +85,7 @@ teamkillMessage = "client\functions\showTeamKillMessage.sqf" call mf_compile;
 
 // Dialog compiles
 client_respawnDialog = "client\systems\playerMenu\dialog\loadRespawnDialog.sqf" call mf_compile;
+fn_checkStoreItemDLC = "client\functions\fn_checkStoreItemDLC.sqf" call mf_compile;
 fn_respawnTimer = "client\systems\scoreboard\fn_respawnTimer.sqf" call mf_compile;
 loadGeneralStore = "client\systems\generalStore\loadGenStore.sqf" call mf_compile;
 loadGunStore = "client\systems\gunStore\loadGunStore.sqf" call mf_compile;

@@ -58,6 +58,8 @@ drawPlayerIcons_thread = [] spawn
 		default      { call currMissionDir + "client\icons\igui_side_indep_ca.paa" };
 	};
 
+	_bluforOpfor = playerSide in [BLUFOR,OPFOR];
+
 	_detectedMinesDisabled = (difficultyOption "detectedMines" == 0);
 	_mineIcon = getText (configfile >> "CfgInGameUI" >> "Cursor" >> "explosive");
 	_mineColor = getArray (configfile >> "CfgInGameUI" >> "Cursor" >> "explosiveColor");
@@ -71,7 +73,7 @@ drawPlayerIcons_thread = [] spawn
 
 	_noBuiltInThermal = ["A3W_disableBuiltInThermal"] call isConfigOn;
 
-	private ["_dist", "_simulation"];
+	private ["_dist"];
 
 	// Execute every frame
 	waitUntil
@@ -88,10 +90,11 @@ drawPlayerIcons_thread = [] spawn
 				   {alive _unit &&
 				   (_unit != player || cameraOn != vehicle player) &&
 				   {!(_unit getVariable ["playerSpawning", false]) &&
-				   (vehicle _unit != getConnectedUAV player || cameraOn != vehicle _unit) && // do not show UAV AI icons when controlling UAV
-				   {_simulation = getText (configFile >> "CfgVehicles" >> typeOf _unit >> "simulation"); _simulation != "headlessclient"}}}}) then 
+				   (vehicle _unit != getConnectedUAV player || cameraOn != vehicle _unit)}}}) then // do not show UAV AI icons when controlling UAV
 				{
+					_simulation = getText (configFile >> "CfgVehicles" >> typeOf _unit >> "simulation");
 					_isUavUnit = (_simulation == "UAVPilot");
+
 					//_dist = _unit distance positionCameraToWorld [0,0,0];
 					_posCode = ([1,2] select _isUavUnit) call drawPlayerIcons_posCode;
 					_pos = _unit call _posCode;
@@ -99,7 +102,10 @@ drawPlayerIcons_thread = [] spawn
 					// only draw players inside range and screen
 					if !(worldToScreen _pos isEqualTo []) then
 					{
-						if (_isUavUnit && {_unit != (crew vehicle _unit) select 0}) exitWith {}; // only one AI per UAV
+						if (_simulation == "headlessclient" || (_isUavUnit && {_unit != (crew vehicle _unit) select 0})) exitWith {}; // exclude headless clients, and allow only one AI per UAV
+
+						if !(_bluforOpfor || {group _unit == group player || // exclude enemy indie groups
+						     (_isUavUnit && {((objectParent _unit) getVariable ["ownerUID","0"]) in ((units player) apply {getPlayerUID _x})})}) exitWith {}; // but allow friendly indie UAVs
 
 						_alpha = (ICON_limitDistance - _dist) / (ICON_limitDistance - ICON_fadeDistance);
 						_color = [1,1,1,_alpha];
@@ -166,7 +172,7 @@ drawPlayerIcons_thread = [] spawn
 						_newArray pushBack [[_icon, _color, _pos, _size, _size, 0, _text, _shadow], _unit, _posCode]; //, 0.03, "PuristaMedium"];
 					};
 				};
-			} forEach (if (playerSide in [BLUFOR,OPFOR]) then { allUnits } else { units player });
+			} forEach allUnits;
 
 			if (_detectedMinesDisabled && "MineDetector" in items player) then
 			{
